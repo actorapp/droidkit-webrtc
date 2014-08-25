@@ -29,7 +29,7 @@ package org.webrtc;
 
 import java.util.EnumSet;
 
-/** Java wrapper for WebRTC & libjingle logging. */
+/** Java wrapper for WebRTC and libjingle logging. */
 public class Logging {
   static {
     System.loadLibrary("jingle_peerconnection_so");
