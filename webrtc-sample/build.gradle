@@ -48,6 +48,9 @@ android {
         buildTypes.release.signingConfig = null
     }
 
+    lintOptions {
+        abortOnError false
+    }
 }
 
 dependencies {
