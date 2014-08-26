@@ -69,51 +69,52 @@ android.libraryVariants.all { variant ->
     }
 }
 
-artifacts {
-    archives releaseJavadocJar
-    archives releaseSourcesJar
-}
-
-
-if (project.hasProperty("ossrhUsername") && project.hasProperty("ossrhPassword")) {
-
-    signing {
-        sign configurations.archives
+project.afterEvaluate {
+    artifacts {
+        archives releaseJavadocJar
+        archives releaseSourcesJar
     }
 
-    uploadArchives {
-        repositories {
-            mavenDeployer {
-                beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+    if (project.hasProperty("ossrhUsername") && project.hasProperty("ossrhPassword")) {
 
-                repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
-                    authentication(userName: ossrhUsername, password: ossrhPassword)
-                }
+        signing {
+            sign configurations.archives
+        }
 
-                pom.project {
-                    name 'DroidKit-WebRTC'
-                    packaging 'aar'
-                    description 'DroidKit WebRTC is port of official WebRTC implementation for android'
-                    url 'https://github.com/secretapphd/droidkit-webrtc'
+        uploadArchives {
+            repositories {
+                mavenDeployer {
+                    beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
 
-                    scm {
-                        url 'scm:git@github.com:secretapphd/droidkit-webrtc.git'
-                        connection 'scm:git@github.com:secretapphd/droidkit-webrtc.git'
-                        developerConnection 'scm:git@github.com:secretapphd/droidkit-webrtc.git'
+                    repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+                        authentication(userName: ossrhUsername, password: ossrhPassword)
                     }
 
-                    licenses {
-                        license {
-                            name 'The MIT License (MIT)'
-                            url 'http://opensource.org/licenses/MIT'
-                            distribution 'repo'
+                    pom.project {
+                        name 'DroidKit-WebRTC'
+                        packaging 'aar'
+                        description 'DroidKit WebRTC is port of official WebRTC implementation for android'
+                        url 'https://github.com/secretapphd/droidkit-webrtc'
+
+                        scm {
+                            url 'scm:git@github.com:secretapphd/droidkit-webrtc.git'
+                            connection 'scm:git@github.com:secretapphd/droidkit-webrtc.git'
+                            developerConnection 'scm:git@github.com:secretapphd/droidkit-webrtc.git'
                         }
-                    }
 
-                    developers {
-                        developer {
-                            id 'ex3ndr'
-                            name 'Stepan Korshakov'
+                        licenses {
+                            license {
+                                name 'The MIT License (MIT)'
+                                url 'http://opensource.org/licenses/MIT'
+                                distribution 'repo'
+                            }
+                        }
+
+                        developers {
+                            developer {
+                                id 'ex3ndr'
+                                name 'Stepan Korshakov'
+                            }
                         }
                     }
                 }
